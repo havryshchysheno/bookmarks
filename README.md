@@ -9,6 +9,11 @@ This project was generated with [Angular CLI](https://github.com/angular/angular
 # Interface preview
 ![Preview](preview.png)
 
+# TODO:
+- [ ] Update actions types
+- [ ] Implement possibility to create\delete groups with nesting
+- [ ] Add notifications (material snackbars) when bookmarks\groups created or deleted
+
 ## Development server
 
 Run `ng serve` for a dev server. Navigate to `http://localhost:4200/`. The app will automatically reload if you change any of the source files.
