@@ -39,7 +39,7 @@
       <button mat-raised-button color="primary" (click)="addBookmark()">Add</button>
     </form>
     <mat-accordion multi>
-      <mat-expansion-panel *ngFor="let bookmarksGroup of (bookmarksGroup$ | async); index as i; trackBy: trackById"
+      <mat-expansion-panel *ngFor="let bookmarksGroup of (bookmarksGroup$ | async); trackBy: trackById"
                            [expanded]="true">
         <mat-expansion-panel-header>
           {{bookmarksGroup.name}}
