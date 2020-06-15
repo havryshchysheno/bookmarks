@@ -1,0 +1,67 @@
+<mat-toolbar>
+  <p>Bookmarks dashboard</p>
+</mat-toolbar>
+
+<div class="container">
+  <div class="bookmarks">
+    <h3>Bookmarks list</h3>
+    <form class="bookmarks-form" [formGroup]="bookmarkForm" (ngSubmit)="onSubmit($event)">
+      <mat-form-field class="bookmarks-form__field">
+        <mat-label>Name</mat-label>
+        <input matInput
+               formControlName="name"
+               placeholder="Bookmark name">
+        <mat-error *ngIf="bookmarkForm.controls.name.touched && bookmarkForm.controls.name.invalid">
+          <span *ngIf="bookmarkForm.controls.name.errors.required">This field is mandatory.</span>
+        </mat-error>
+      </mat-form-field>
+      <mat-form-field class="bookmarks-form__field">
+        <mat-label>URL</mat-label>
+        <input matInput
+               formControlName="url"
+               placeholder="Url">
+        <mat-error *ngIf="bookmarkForm.controls.url.touched && bookmarkForm.controls.url.invalid">
+          <span *ngIf="bookmarkForm.controls.url.errors.required">This field is mandatory.</span>
+          <span *ngIf="bookmarkForm.controls.url.errors.pattern">Invalid url</span>
+        </mat-error>
+      </mat-form-field>
+      <mat-form-field class="bookmarks-form__field">
+        <mat-label>Choose group</mat-label>
+        <mat-select formControlName="groupId">
+          <ng-container *ngFor="let group of (possibleGroups$ | async); trackBy: trackById">
+            <mat-option [value]="group.id">{{group.name}}</mat-option>
+          </ng-container>
+        </mat-select>
+        <mat-error *ngIf="bookmarkForm.controls.groupId.touched && bookmarkForm.controls.groupId.invalid">
+          <span *ngIf="bookmarkForm.controls.groupId.errors.required">This field is mandatory.</span>
+        </mat-error>
+      </mat-form-field>
+      <button mat-raised-button color="primary" (click)="addBookmark()">Add</button>
+    </form>
+    <mat-accordion multi>
+      <mat-expansion-panel *ngFor="let bookmarksGroup of (bookmarksGroup$ | async); index as i; trackBy: trackById"
+                           [expanded]="true">
+        <mat-expansion-panel-header>
+          {{bookmarksGroup.name}}
+        </mat-expansion-panel-header>
+        <mat-list *ngIf="bookmarksGroup.bookmarks.length else emptyListTemplate">
+          <mat-list-item *ngFor="let bookmark of bookmarksGroup.bookmarks; trackBy: trackById">
+            <div class="bookmark__item">
+              <a [href]="bookmark.url" target="_blank">{{bookmark.name}}</a>
+              <button mat-icon-button color="warn" aria-label="Delete bookmark" (click)="onRemoveIconClicked(bookmark)">
+                <mat-icon>delete</mat-icon>
+              </button>
+            </div>
+          </mat-list-item>
+        </mat-list>
+      </mat-expansion-panel>
+    </mat-accordion>
+  </div>
+</div>
+
+
+<ng-template #emptyListTemplate>
+  <div class="bookmarks__empty">
+    <span>Empty list</span>
+  </div>
+</ng-template>

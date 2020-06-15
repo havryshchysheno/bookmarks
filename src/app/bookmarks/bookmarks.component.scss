@@ -1,0 +1,32 @@
+.bookmark__item {
+  justify-content: space-between;
+  display: flex;
+  flex-grow: 1;
+  align-items: center;
+}
+
+.bookmarks__empty {
+  display: flex;
+  flex-grow: 1;
+  justify-content: center;
+  align-items: center;
+}
+
+.container {
+  display: flex;
+  width: 1180px;
+  margin: auto;
+}
+
+.bookmarks {
+  flex-grow: 1;
+}
+
+.bookmarks-form {
+  display: flex;
+  align-items: center;
+}
+
+.bookmarks-form__field {
+  margin-right: 20px;
+}
